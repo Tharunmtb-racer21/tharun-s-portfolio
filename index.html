@@ -97,10 +97,14 @@
                     <div class="about-col-1" data-tilt data-tilt-full-page-listening  data-tilt-speed="400" data-tilt-perspective="700" data-tilt-gyroscope="false">
                         <img src="profile-pic-1.png" alt="profile-img">
                     </div>
-                    <div class="about-col-2" data-aos="fade-down">
+                    <div class="about-col-2">
                         <h1 class="sub-title">About <span class="blue">Me</span></h1>
+                        <div class="about-copy">
+                            <p>I’m <strong>Tharun Nallasamy Kounder</strong>, an Electronics and Instrumentation Engineering undergraduate at <strong>Kumaraguru College of Technology (KCT)</strong> and a <strong>UG Research Fellow</strong>. My interests include Battery Technology, Battery Management Systems (BMS), Electric Vehicles (EV), Artificial Intelligence, Embedded Systems, and Sustainable Energy.</p>
+                            <p>I have gained practical exposure through internships in Transformer Manufacturing and PLC Automation, and I organized an <strong>AICTE Industry Hackathon</strong>. These experiences strengthen my focus on reliable engineering, research, and thoughtful innovation.</p>
+                            <p>As a <strong>Freelance Developer</strong>, I create professional websites, Android applications, portfolio websites, and digital solutions for individuals and businesses. I aim to combine engineering, AI, and sustainable technology to help shape the future of intelligent mobility.</p>
+                        </div>
                         
-                        <p>I'm 𝐓𝐡𝐚𝐫𝐮𝐧 𝐍𝐚𝐥𝐥𝐚𝐬𝐚𝐦𝐲 𝐊𝐨𝐮𝐧𝐝𝐞𝐫, an Electronics and Instrumentation Engineering undergraduate at Kumaraguru College of Technology (KCT) and a UG 𝐑𝐞𝐬𝐞𝐚𝐫𝐜𝐡 𝐅𝐞𝐥𝐥𝐨𝐰passionate about𝐁𝐚𝐭𝐭𝐞𝐫𝐲 𝐓𝐞𝐜𝐡𝐧𝐨𝐥𝐨𝐠𝐲, 𝐁𝐚𝐭𝐭𝐞𝐫𝐲 𝐌𝐚𝐧𝐚𝐠𝐞𝐦𝐞𝐧𝐭 𝐒𝐲𝐬𝐭𝐞𝐦𝐬 (𝐁𝐌𝐒), 𝐄𝐥𝐞𝐜𝐭𝐫𝐢𝐜 𝐕𝐞𝐡𝐢𝐜𝐥𝐞𝐬 (𝐄𝐕𝐬), 𝐀𝐫𝐭𝐢𝐟𝐢𝐜𝐢𝐚𝐥 𝐈𝐧𝐭𝐞𝐥𝐥𝐢𝐠𝐞𝐧𝐜𝐞, 𝐓𝐫𝐚𝐧𝐬𝐟𝐨𝐫𝐦𝐞𝐫, Automation, and Sustainable Energy. I have completed internships in Transformer Manufacturing and PLC Automation, organized an𝐀𝐈𝐂𝐓𝐄 𝐈𝐧𝐝𝐮𝐬𝐭𝐫𝐲 𝐇𝐚𝐜𝐤𝐚𝐭𝐡𝐨𝐧, and actively contribute to engineering research and innovation. As a𝐟𝐫𝐞𝐞𝐥𝐚𝐧𝐜𝐞 𝐝𝐞𝐯𝐞𝐥𝐨𝐩𝐞𝐫, I design and build𝐩𝐫𝐨𝐟𝐞𝐬𝐬𝐢𝐨𝐧𝐚𝐥 𝐰𝐞𝐛𝐬𝐢𝐭𝐞𝐬, 𝐀𝐧𝐝𝐫𝐨𝐢𝐝 𝐚𝐩𝐩𝐥𝐢𝐜𝐚𝐭𝐢𝐨𝐧𝐬, 𝐩𝐨𝐫𝐭𝐟𝐨𝐥𝐢𝐨 𝐰𝐞𝐛𝐬𝐢𝐭𝐞𝐬,and digital solutions for individuals and businesses. My mission is to combine engineering, AI, and sustainable technology to develop innovative solutions for the future of intelligent mobility.</p>
                         <div class="links">
                             <a href="https://www.linkedin.com/in/tharunmtbracer21/" target="_blank" class="no-hover-cursor"><i class="bi bi-linkedin"></i></a>
                             <a href="https://github.com/Tharunmtb-racer21" target="_blank" class="no-hover-cursor"><i class="bi bi-github"></i></a>
@@ -560,5 +564,118 @@ window.addEventListener('load', () => {
 });
 </script>
 
+<script>
+    (function () {
+        const aboutContent = document.querySelector('#about .about-col-2');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let audioContext;
+        let userHasInteracted = false;
+        let animationStarted = false;
+
+        if (!aboutContent) return;
+
+        function unlockTypingSound() {
+            userHasInteracted = true;
+            if (!audioContext) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioContext = new AudioContext();
+            }
+            if (audioContext?.state === 'suspended') audioContext.resume().catch(() => {});
+        }
+
+        ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
+            window.addEventListener(eventName, unlockTypingSound, { once: true, passive: true });
+        });
+
+        function playTypingSound(characterIndex) {
+            if (!userHasInteracted || !audioContext || audioContext.state !== 'running' || characterIndex % 2 !== 0) return;
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            const now = audioContext.currentTime;
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(520 + Math.random() * 360, now);
+            oscillator.frequency.exponentialRampToValueAtTime(210, now + 0.028);
+            gain.gain.setValueAtTime(0.018, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+            oscillator.connect(gain).connect(audioContext.destination);
+            oscillator.start(now);
+            oscillator.stop(now + 0.032);
+        }
+
+        function typeParagraph(paragraph, isLastParagraph) {
+            const originalHeight = paragraph.getBoundingClientRect().height;
+            const originalStyle = paragraph.getAttribute('style');
+            const typingParts = [];
+            const textWalker = document.createTreeWalker(paragraph, NodeFilter.SHOW_TEXT);
+
+            paragraph.style.minHeight = `${originalHeight}px`;
+            while (textWalker.nextNode()) {
+                const textNode = textWalker.currentNode;
+                typingParts.push({ text: textNode.nodeValue, target: textNode });
+                textNode.nodeValue = '';
+            }
+
+            paragraph.classList.add('is-typing');
+            let partIndex = 0;
+            let characterIndex = 0;
+            let wordIndex = 0;
+
+            function revealNextWord() {
+                const part = typingParts[partIndex];
+                if (!part) {
+                    if (originalStyle === null) {
+                        paragraph.removeAttribute('style');
+                    } else {
+                        paragraph.setAttribute('style', originalStyle);
+                    }
+                    if (isLastParagraph) {
+                        window.setTimeout(() => paragraph.classList.remove('is-typing'), 2500);
+                    } else {
+                        paragraph.classList.remove('is-typing');
+                    }
+                    return;
+                }
+                const remainingText = part.text.slice(characterIndex);
+                const nextWord = remainingText.match(/^\S+\s*|^\s+/)[0];
+                part.target.nodeValue += nextWord;
+                characterIndex += nextWord.length;
+                playTypingSound(++wordIndex);
+
+                if (characterIndex >= part.text.length) {
+                    partIndex++;
+                    characterIndex = 0;
+                }
+                window.setTimeout(revealNextWord, 54);
+            }
+            revealNextWord();
+        }
+
+        function revealAbout() {
+            if (animationStarted) return;
+            animationStarted = true;
+            aboutContent.classList.add('is-visible');
+            if (reduceMotion) return;
+            let delay = 220;
+            const paragraphs = Array.from(aboutContent.querySelectorAll('.about-copy p'));
+            paragraphs.forEach((paragraph, index) => {
+                window.setTimeout(() => typeParagraph(paragraph, index === paragraphs.length - 1), delay);
+                delay += paragraph.textContent.trim().split(/\s+/).length * 54 + 360;
+            });
+        }
+
+        if (!('IntersectionObserver' in window)) {
+            revealAbout();
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries, currentObserver) => {
+            if (!entries[0].isIntersecting) return;
+            revealAbout();
+            currentObserver.unobserve(aboutContent);
+        }, { threshold: 0.18 });
+
+        observer.observe(aboutContent);
+    }());
+</script>
 </body>
 </html>
