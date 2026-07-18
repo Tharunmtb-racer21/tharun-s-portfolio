@@ -567,7 +567,7 @@ window.addEventListener('load', () => {
 <script>
     (function () {
         const aboutContent = document.querySelector('#about .about-col-2');
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let audioContext;
         let userHasInteracted = false;
         let animationStarted = false;
@@ -580,7 +580,7 @@ window.addEventListener('load', () => {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
                 if (AudioContext) audioContext = new AudioContext();
             }
-            if (audioContext?.state === 'suspended') audioContext.resume().catch(() => {});
+            if (audioContext && audioContext.state === 'suspended') audioContext.resume().catch(() => {});
         }
 
         ['pointerdown', 'keydown', 'touchstart'].forEach((eventName) => {
